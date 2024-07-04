@@ -168,7 +168,7 @@ window.addEventListener('resize', () => {
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100);
 camera.position.x = 1;
 camera.position.y = 1;
-camera.position.z = 2;
+camera.position.z = 4;
 scene.add(camera);
 
 // Controls
@@ -242,7 +242,7 @@ const handleInteraction = () => {
     if (intersects.length) {
         const intersectedObject = intersects[0].object;
         if (intersectedObject === contactMe) {
-            window.open('mailto:marasatilu@gmail.com');
+            window.location.href = 'mailto:marasatilu@gmail.com';
         }
     }
 };
