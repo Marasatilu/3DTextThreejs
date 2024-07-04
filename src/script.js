@@ -8,7 +8,20 @@ import GUI from 'lil-gui'
  * Base
  */
 // Debug
-const gui = new GUI()
+const gui = new GUI({
+    width: 300,
+    title: 'Funny Controls'
+})
+// gui.close()
+gui.hide()
+
+window.addEventListener('keydown', (event) =>
+{
+    if(event.key == 'h')
+        gui.show(gui._hidden)
+})
+
+
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
