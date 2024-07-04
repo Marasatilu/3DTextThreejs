@@ -11,19 +11,7 @@ import GUI from 'lil-gui'
 const gui = new GUI({
     width: 300,
     title: 'Funny Controls'
-    
 })
-const cubeTweaks = gui.addFolder('Text Controls')
-// gui.close()
-gui.hide()
-
-window.addEventListener('keydown', (event) =>
-{
-    if(event.key == 'h')
-        gui.show(gui._hidden)
-})
-
-
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -234,7 +222,15 @@ window.addEventListener('mousemove', (event) => {
     mouse.y = -(event.clientY / sizes.height) * 2 + 1;
 });
 
-window.addEventListener('click', () => {
+const handleInteraction = (event) => {
+    if (event.changedTouches) {
+        mouse.x = (event.changedTouches[0].clientX / sizes.width) * 2 - 1;
+        mouse.y = -(event.changedTouches[0].clientY / sizes.height) * 2 + 1;
+    } else {
+        mouse.x = (event.clientX / sizes.width) * 2 - 1;
+        mouse.y = -(event.clientY / sizes.height) * 2 + 1;
+    }
+
     raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects(scene.children);
 
@@ -244,6 +240,15 @@ window.addEventListener('click', () => {
             window.open('mailto:marasatilu@gmail.com');
         }
     }
+};
+
+window.addEventListener('click', (event) => {
+    handleInteraction(event);
+});
+
+window.addEventListener('touchstart', (event) => {
+    handleInteraction(event);
 });
 
 tick()
+ 
