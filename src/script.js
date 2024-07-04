@@ -11,7 +11,9 @@ import GUI from 'lil-gui'
 const gui = new GUI({
     width: 300,
     title: 'Funny Controls'
+    
 })
+const cubeTweaks = gui.addFolder('Text Controls')
 // gui.close()
 gui.hide()
 
