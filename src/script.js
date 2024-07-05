@@ -12,6 +12,9 @@ const gui = new GUI({
     width: 300,
     title: 'Funny Controls'
 });
+
+
+
 gui.hide();
 
 window.addEventListener('keydown', (event) => {
@@ -19,6 +22,8 @@ window.addEventListener('keydown', (event) => {
         gui.show(gui._hidden);
     }
 });
+
+
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl');
@@ -44,7 +49,7 @@ let contactMe;
 fontLoader.load(
     '/fonts/helvetiker_regular.typeface.json',
     (font) => {
-        const textGeometry = new TextGeometry(
+        const nameMara = new TextGeometry(
             'Mara Saturio',
             {
                 font: font,
@@ -59,16 +64,40 @@ fontLoader.load(
             }
         );
         const textMaterial = new THREE.MeshMatcapMaterial({ matcap: matcapTexture });
-        const text = new THREE.Mesh(textGeometry, textMaterial);
-        textGeometry.center();
-        scene.add(text);
+        const nameMaraMesh = new THREE.Mesh(nameMara, textMaterial);
+        nameMara.center();
+        scene.add(nameMaraMesh);
+
+        // GUI Tweak for color
+        const params = {
+            color: '#e30d0d'
+        };
+
+        gui.addColor(params, 'color').name('Name Color').onChange((value) => {
+            nameMaraMesh.material.color.set(value);
+        });
+
+        const wireframeMaraParams = {
+            wireframe: false
+        };
+        
+        gui.add(wireframeMaraParams, 'wireframe').name('Show name Wireframe').onChange((value) => {
+            if (nameMaraMesh) nameMaraMesh.material.wireframe = value;            
+        });
+
+        gui.add(nameMaraMesh, 'visible')
+
+  
+
+ 
+        
     }
 );
 
 fontLoader.load(
     '/fonts/helvetiker_regular.typeface.json',
     (font) => {
-        const textGeometry2 = new TextGeometry(
+        const textDeveloper = new TextGeometry(
             'Creative developer',
             {
                 font: font,
@@ -83,18 +112,39 @@ fontLoader.load(
             }
         );
         const textMaterial = new THREE.MeshMatcapMaterial({ matcap: matcapTexture });
-        const text = new THREE.Mesh(textGeometry2, textMaterial);
+        const developerMesh = new THREE.Mesh(textDeveloper, textMaterial);
         
-        textGeometry2.translate(-1.65, -0.7, -0.05);
+        textDeveloper.translate(-1.65, -0.7, -0.05);
 
-        scene.add(text);
+        scene.add(developerMesh);
+
+        // GUI Tweak for color
+        const params = {
+            color: '#12e10e'
+        };
+
+        gui.addColor(params, 'color').name('Developer Color').onChange((value) => {
+            developerMesh.material.color.set(value);
+        });
+
+        const wireframeDeveloperParams = {
+            wireframe: false
+        };
+        
+        gui.add(wireframeDeveloperParams, 'wireframe').name('Show developer Wireframe').onChange((value) => {
+            if (developerMesh) developerMesh.material.wireframe = value;
+            
+        });
+
+        gui.add(developerMesh, 'visible')
+
     }
 );
 
 fontLoader.load(
     '/fonts/helvetiker_regular.typeface.json',
     (font) => {
-        const textGeometry2 = new TextGeometry(
+        const textContact = new TextGeometry(
             'Lets talk!',
             {
                 font: font,
@@ -109,11 +159,33 @@ fontLoader.load(
             }
         );
         const textMaterial = new THREE.MeshMatcapMaterial({ matcap: matcapTextureStars });
-        contactMe = new THREE.Mesh(textGeometry2, textMaterial);
+        contactMe = new THREE.Mesh(textContact, textMaterial);
         
-        textGeometry2.translate(0.8, -1.1, -0.05);
+        textContact.translate(0.8, -1.1, -0.05);
 
         scene.add(contactMe);
+
+        // GUI Tweaks
+        const params = {
+            color: '#0055ff'
+        };
+
+        gui.addColor(params, 'color').name('Lets Talk Color').onChange((value) => {
+            contactMe.material.color.set(value);
+        });
+
+        const wireframeContactParams = {
+            wireframe: false
+        };
+        
+        gui.add(wireframeContactParams, 'wireframe').name('Show contact Wireframe').onChange((value) => {
+            if (contactMe) contactMe.material.wireframe = value;
+            
+        });
+
+        gui.add(contactMe, 'visible')
+
+
     }
 );
 
@@ -137,7 +209,19 @@ for (let i = 0; i < 100; i++) {
     star.scale.set(scale, scale, scale);
 
     scene.add(star);
+
+
+
 }
+
+
+/**
+ * GUI Tweaks
+ */
+
+
+
+
 
 /**
  * Sizes
